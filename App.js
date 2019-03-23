@@ -2,8 +2,8 @@ import React from 'react'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
-import DeckList from './components/DeckList'
-import { Header, Content, Root, Container } from 'native-base'
+import AppNavigator from './components/AppNavigator'
+import { Root } from 'native-base'
 import { Font } from 'expo'
 import { Ionicons } from '@expo/vector-icons'
 
@@ -25,12 +25,9 @@ export default class App extends React.Component {
     return (
       <Provider store={createStore(reducer)}>
         <Root>
-          {loading === false && (
-            <Container>
-              <Header />
-              <Content>
-                <DeckList />
-              </Content></Container>)}
+          {loading === false &&
+            <AppNavigator />
+          }
         </Root>
       </Provider>
     );
