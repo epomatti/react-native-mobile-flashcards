@@ -2,13 +2,20 @@ import React, { Component } from 'react'
 import { createAppContainer, createStackNavigator } from 'react-navigation'
 import DeckList from './DeckList'
 import NewDeck from './NewDeck'
+import { Header, Text } from 'native-base'
 
 const StackNavigator = createStackNavigator({
   Home: {
-    screen: DeckList
+    screen: DeckList,
+    navigationOptions: {
+      title: 'Decks'
+    }
   },
   NewDeck: {
-    screen: NewDeck
+    screen: NewDeck,
+    navigationOptions: {
+      header: null
+    }
   }
 })
 
