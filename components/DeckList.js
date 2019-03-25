@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
-import { Container, Button, Text, Header } from 'native-base'
+import { Container, Button, Text, Header, Body, Title } from 'native-base'
+import { connect } from 'react-redux'
 
 class DeckList extends Component {
   render() {
     return (
       <Container>
         <Text>You don't have any decks</Text>
-        <Button>
+        <Button onPress={() => this.props.navigation.navigate(
+          'NewDeck'
+        )}>
           <Text>Create Deck</Text>
         </Button>
       </Container >
@@ -14,4 +17,4 @@ class DeckList extends Component {
   }
 }
 
-export default DeckList;
+export default connect()(DeckList);
