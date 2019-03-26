@@ -36,7 +36,7 @@ class DeckList extends Component {
       <Container>
         {
           Object.keys(decks).map(key => (
-            <Text>{[Number(key), obj[key]]}</Text>
+            <Text>{key}</Text>
           ))
         }
       </Container>

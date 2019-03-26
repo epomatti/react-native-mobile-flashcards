@@ -3,6 +3,7 @@ import { Container, Button, Text, Input, Item } from 'native-base'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 import { addDeck } from '../actions'
+import * as Api from '../utils/api'
 
 class NewDeck extends Component {
   state = {
@@ -11,10 +12,11 @@ class NewDeck extends Component {
   submit = () => {
     const { dispatch } = this.props
     dispatch(addDeck(this.state))
+    Api.submitDeck(this.state)
     this.toHome()
   }
   toHome = () => {
-    this.props.navigation.dispatch(NavigationActions.back({ key: 'NewDeck' }))
+    this.props.navigation.dispatch(NavigationActions.navigate({ routeName: 'DeckList' }))
   }
   render() {
     return (
@@ -30,9 +32,13 @@ class NewDeck extends Component {
         <Button onPress={this.submit}>
           <Text>Submit</Text>
         </Button>
-      </Container >
+      </Container>
     );
   }
 }
-
-export default connect()(NewDeck);
+function mapStateToProps(decks) {
+  return {
+    decks
+  }
+}
+export default connect(mapStateToProps)(NewDeck);
