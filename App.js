@@ -1,7 +1,7 @@
 import React from 'react'
 import { applyMiddleware, createStore } from 'redux'
 import { Provider } from 'react-redux'
-import reducer from './src/reducers'
+import decks from './src/reducers'
 import { Root } from 'native-base'
 import { Font } from 'expo'
 import { Ionicons } from '@expo/vector-icons'
@@ -9,6 +9,7 @@ import { createAppContainer, createStackNavigator } from 'react-navigation'
 import DeckList from './src/components/DeckList'
 import NewDeck from './src/components/NewDeck'
 import logger from 'redux-logger'
+import { combineReducers } from 'redux'
 
 const StackNavigator = createStackNavigator({
   DeckList: {
@@ -40,11 +41,10 @@ export default class App extends React.Component {
     })
     this.setState({ loading: false });
   }
-
   render() {
     const { loading } = this.state
     return (
-      <Provider store={createStore(reducer, applyMiddleware(logger))}>
+      <Provider store={createStore(combineReducers({ decks }), applyMiddleware(logger))}>
         <Root>
           {loading === false &&
             <MainNavigator />
