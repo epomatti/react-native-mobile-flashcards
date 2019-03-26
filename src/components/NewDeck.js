@@ -11,8 +11,8 @@ class NewDeck extends Component {
   }
   submit = () => {
     const { dispatch } = this.props
-    dispatch(addDeck(this.state))
     Api.submitDeck(this.state)
+      .then(dispatch(addDeck(this.state)))
     this.toHome()
   }
   toHome = () => {
@@ -36,9 +36,5 @@ class NewDeck extends Component {
     );
   }
 }
-function mapStateToProps(decks) {
-  return {
-    decks
-  }
-}
-export default connect(mapStateToProps)(NewDeck);
+
+export default connect()(NewDeck);

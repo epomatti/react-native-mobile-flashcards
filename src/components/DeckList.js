@@ -43,9 +43,10 @@ class DeckList extends Component {
     )
   }
 }
-function mapStateToProps({ decks }) {
+function mapStateToProps(state) {
+  console.log(state)
   return {
-    decks
+    state
   }
 }
 export default connect(mapStateToProps)(DeckList);
