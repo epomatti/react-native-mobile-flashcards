@@ -20,7 +20,7 @@ class Decks extends Component {
     if (ready === false) {
       return <Container><Text>Loading decks</Text></Container>
     }
-    if (Object.keys(decks).length === 0) {
+    if (Object.keys(decks).length === undefined) {
       return (
         <Container>
           <Text>You don't have any decks</Text>

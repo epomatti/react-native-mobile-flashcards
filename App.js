@@ -5,15 +5,18 @@ import decks from './src/reducers'
 import { Root } from 'native-base'
 import { Font } from 'expo'
 import { Ionicons } from '@expo/vector-icons'
-import { createAppContainer, createStackNavigator, createBottomTabNavigator } from 'react-navigation'
+import { createAppContainer, createStackNavigator, createMaterialTopTabNavigator } from 'react-navigation'
 import Decks from './src/components/Decks'
 import NewDeck from './src/components/NewDeck'
 import logger from 'redux-logger'
 import { combineReducers } from 'redux'
+import { Constants } from "expo"
+import { View } from 'react-native'
+import { AsyncStorage } from 'react-native'
 
 const store = createStore(combineReducers({ decks }), applyMiddleware(logger))
 
-const Tabs = createBottomTabNavigator({
+const Tabs = createMaterialTopTabNavigator({
   Decks: {
     screen: Decks,
     navigationOptions: {
@@ -29,6 +32,11 @@ const Tabs = createBottomTabNavigator({
 }, {
     navigationOptions: {
       header: null
+    },
+    tabBarOptions: {
+      style: {
+        height: 56
+      }
     }
   })
 
@@ -36,11 +44,14 @@ const StackNavigator = createStackNavigator({
   Home: {
     screen: Tabs
   }
-})
+}, {
+    headerMode: 'none'
+  })
 
 const MainNavigator = createAppContainer(StackNavigator)
 
 export default class App extends React.Component {
+
   constructor(props) {
     super(props)
     this.state = { loading: true }
@@ -59,6 +70,7 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <Root>
+          <View style={{ height: Constants.statusBarHeight }} />
           {loading === false &&
             <MainNavigator />
           }

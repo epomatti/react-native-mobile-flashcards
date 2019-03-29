@@ -16,7 +16,7 @@ class NewDeck extends Component {
     this.toHome()
   }
   toHome = () => {
-    this.props.navigation.dispatch(NavigationActions.navigate({ routeName: 'DeckList' }))
+    this.props.navigation.dispatch(NavigationActions.navigate({ routeName: 'Decks' }))
   }
   render() {
     return (
