@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { retrieveDecks } from '../actions';
 import * as Api from '../utils/api'
 
-class DeckList extends Component {
+class Decks extends Component {
   state = {
     ready: false
   }
@@ -36,17 +36,16 @@ class DeckList extends Component {
       <Container>
         {
           Object.keys(decks).map(key => (
-            <Text>{key}</Text>
+            <Text key={key}>{key}</Text>
           ))
         }
       </Container>
     )
   }
 }
-function mapStateToProps(state) {
-  console.log(state)
+function mapStateToProps(decks) {
   return {
-    state
+    decks
   }
 }
-export default connect(mapStateToProps)(DeckList);
+export default connect(mapStateToProps)(Decks);

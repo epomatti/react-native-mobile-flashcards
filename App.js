@@ -5,24 +5,36 @@ import decks from './src/reducers'
 import { Root } from 'native-base'
 import { Font } from 'expo'
 import { Ionicons } from '@expo/vector-icons'
-import { createAppContainer, createStackNavigator } from 'react-navigation'
-import DeckList from './src/components/DeckList'
+import { createAppContainer, createStackNavigator, createBottomTabNavigator } from 'react-navigation'
+import Decks from './src/components/Decks'
 import NewDeck from './src/components/NewDeck'
 import logger from 'redux-logger'
 import { combineReducers } from 'redux'
 
-const StackNavigator = createStackNavigator({
-  DeckList: {
-    screen: DeckList,
+const store = createStore(combineReducers({ decks }), applyMiddleware(logger))
+
+const Tabs = createBottomTabNavigator({
+  Decks: {
+    screen: Decks,
     navigationOptions: {
-      title: 'Decks'
+      tabBarLabel: 'DECKS'
     }
   },
   NewDeck: {
     screen: NewDeck,
     navigationOptions: {
-      title: 'New Deck'
+      tabBarLabel: 'NEW DECK'
     }
+  }
+}, {
+    navigationOptions: {
+      header: null
+    }
+  })
+
+const StackNavigator = createStackNavigator({
+  Home: {
+    screen: Tabs
   }
 })
 
@@ -41,10 +53,11 @@ export default class App extends React.Component {
     })
     this.setState({ loading: false });
   }
+
   render() {
     const { loading } = this.state
     return (
-      <Provider store={createStore(combineReducers({ decks }), applyMiddleware(logger))}>
+      <Provider store={store}>
         <Root>
           {loading === false &&
             <MainNavigator />
