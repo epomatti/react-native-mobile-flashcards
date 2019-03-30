@@ -14,6 +14,7 @@ import { combineReducers } from 'redux'
 import { Constants } from "expo"
 import { View } from 'react-native'
 import { AsyncStorage } from 'react-native'
+import  AddCard  from './src/components/AddCard'
 
 const store = createStore(combineReducers({ decks }), applyMiddleware(logger))
 
@@ -42,6 +43,9 @@ const StackNavigator = createStackNavigator({
   },
   Deck: {
     screen: Deck,
+  },
+  AddCard: {
+    screen: AddCard,
   }
 })
 
@@ -54,7 +58,10 @@ export default class App extends React.Component {
     this.state = { loading: true }
   }
   async componentDidMount() {
+
     //AsyncStorage.clear() 
+    //AsyncStorage.getItem('decks').then(decks => JSON.parse(decks)).then(decks => console.log(decks))
+
     await Font.loadAsync({
       Roboto: require('native-base/Fonts/Roboto.ttf'),
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),

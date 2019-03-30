@@ -9,17 +9,18 @@ class Deck extends Component {
       title: deckId
     }
   }
+  toAddCard = () => {
+    const { deckId } = this.props.navigation.state.params
+    this.props.navigation.navigate('AddCard', { deckId })
+  }
   render() {
     const { title, cards } = this.props.deck
     return (
       <Card key={title}>
-        <CardItem header>
-          <Text>{title}</Text>
-        </CardItem>
         <CardItem>
           <Body>
             <Text>{cards.length} cards</Text>
-            <Button bordered>
+            <Button bordered onPress={() => this.toAddCard()}>
               <Text>Add Card</Text>
             </Button>
             <Button>
