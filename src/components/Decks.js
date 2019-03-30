@@ -15,8 +15,9 @@ class Decks extends Component {
       .then(decks => dispatch(retrieveDecks(decks)))
       .then(this.setState({ ready: true }))
   }
-  toDeck = (id) => {
-    this.props.navigation.dispatch(NavigationActions.navigate({ routeName: 'Deck' }))
+  toDeck = (key) => {
+    this.props.navigation.navigate('Deck', { deckId: key }
+    )
   }
   render() {
     const { decks } = this.props
@@ -40,13 +41,7 @@ class Decks extends Component {
         <Container>
           {
             Object.keys(decks).map(key => (
-
-              <TouchableOpacity key={key}
-                onPress={() => this.props.navigation.navigate(
-                  'Deck',
-                  { deckId: key }
-                )}
-              >
+              <TouchableOpacity key={key} onPress={() => this.toDeck(key)}>
                 <Card >
                   <CardItem header>
                     <Text>{key}</Text>
