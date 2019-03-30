@@ -3,6 +3,12 @@ import { Button, Text, Card, CardItem, Body } from 'native-base'
 import { connect } from 'react-redux'
 
 class Deck extends Component {
+  static navigationOptions = ({ navigation }) => {
+    const { deckId } = navigation.state.params
+    return {
+      title: deckId
+    }
+  }
   render() {
     const { title, cards } = this.props.deck
     return (
