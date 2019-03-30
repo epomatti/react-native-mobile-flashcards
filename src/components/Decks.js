@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { TouchableOpacity } from 'react-native'
 import { Container, Button, Text, Card, CardItem, Body } from 'native-base'
 import { connect } from 'react-redux'
 import { retrieveDecks } from '../actions';
@@ -13,6 +14,9 @@ class Decks extends Component {
     Api.fetchDecks()
       .then(decks => dispatch(retrieveDecks(decks)))
       .then(this.setState({ ready: true }))
+  }
+  toDeck = (id) => {
+    this.props.navigation.dispatch(NavigationActions.navigate({ routeName: 'Deck' }))
   }
   render() {
     const { decks } = this.props
@@ -36,16 +40,24 @@ class Decks extends Component {
         <Container>
           {
             Object.keys(decks).map(key => (
-              <Card key={key}>
-                <CardItem header>
-                  <Text>{key}</Text>
-                </CardItem>
-                <CardItem>
-                  <Body>
-                    <Text>{decks[key].cards.length} cards</Text>
-                  </Body>
-                </CardItem>
-              </Card>
+
+              <TouchableOpacity key={key}
+                onPress={() => this.props.navigation.navigate(
+                  'Deck',
+                  { deckId: key }
+                )}
+              >
+                <Card >
+                  <CardItem header>
+                    <Text>{key}</Text>
+                  </CardItem>
+                  <CardItem>
+                    <Body>
+                      <Text>{decks[key].cards.length} cards</Text>
+                    </Body>
+                  </CardItem>
+                </Card>
+              </TouchableOpacity>
             ))
           }
         </Container>

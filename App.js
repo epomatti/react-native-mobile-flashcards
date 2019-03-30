@@ -8,6 +8,7 @@ import { Ionicons } from '@expo/vector-icons'
 import { createAppContainer, createStackNavigator, createMaterialTopTabNavigator } from 'react-navigation'
 import Decks from './src/components/Decks'
 import NewDeck from './src/components/NewDeck'
+import Deck from './src/components/Deck'
 import logger from 'redux-logger'
 import { combineReducers } from 'redux'
 import { Constants } from "expo"
@@ -43,6 +44,9 @@ const Tabs = createMaterialTopTabNavigator({
 const StackNavigator = createStackNavigator({
   Home: {
     screen: Tabs
+  },
+  Deck: {
+    screen: Deck
   }
 }, {
     headerMode: 'none'
