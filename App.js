@@ -32,25 +32,18 @@ const Tabs = createMaterialTopTabNavigator({
   }
 }, {
     navigationOptions: {
-      header: null
-    },
-    tabBarOptions: {
-      style: {
-        height: 56
-      }
+      headerTitle: 'FLASHCARDS'
     }
   })
 
 const StackNavigator = createStackNavigator({
   Home: {
-    screen: Tabs
+    screen: Tabs,
   },
   Deck: {
-    screen: Deck
+    screen: Deck,
   }
-}, {
-    headerMode: 'none'
-  })
+})
 
 const MainNavigator = createAppContainer(StackNavigator)
 
@@ -75,7 +68,6 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <Root>
-          <View style={{ height: Constants.statusBarHeight }} />
           {loading === false &&
             <MainNavigator />
           }

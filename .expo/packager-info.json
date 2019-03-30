@@ -2,9 +2,9 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 2620,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "packagerPid": 11768,
+  "expoServerNgrokUrl": "https://xi-tv3.anonymous.react-mobile-flashcards.exp.direct",
+  "packagerNgrokUrl": "https://packager.xi-tv3.anonymous.react-mobile-flashcards.exp.direct",
+  "ngrokPid": 1424,
   "webpackServerPort": null
 }
