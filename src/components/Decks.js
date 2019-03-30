@@ -20,7 +20,7 @@ class Decks extends Component {
     if (ready === false) {
       return <Container><Text>Loading decks</Text></Container>
     }
-    if (Object.keys(decks).length === 0) {
+    if (ready === true && Object.keys(decks).length === 0) {
       return (
         <Container>
           <Text>You don't have any decks</Text>
@@ -31,25 +31,26 @@ class Decks extends Component {
           </Button>
         </Container >
       )
+    } else {
+      return (
+        <Container>
+          {
+            Object.keys(decks).map(key => (
+              <Card key={key}>
+                <CardItem header>
+                  <Text>{key}</Text>
+                </CardItem>
+                <CardItem>
+                  <Body>
+                    <Text>{decks[key].cards.length} cards</Text>
+                  </Body>
+                </CardItem>
+              </Card>
+            ))
+          }
+        </Container>
+      )
     }
-    return (
-      <Container>
-        {
-          Object.keys(decks).map(key => (
-            <Card key={key}>
-              <CardItem header>
-                <Text>{key}</Text>
-              </CardItem>
-              <CardItem>
-                <Body>
-                  <Text>Cards: {decks[key].cards.length}</Text>
-                </Body>
-              </CardItem>
-            </Card>
-          ))
-        }
-      </Container>
-    )
   }
 }
 function mapStateToProps({ decks }) {
