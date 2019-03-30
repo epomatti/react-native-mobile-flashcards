@@ -7,7 +7,8 @@ import * as Api from '../utils/api'
 
 class NewDeck extends Component {
   state = {
-    title: ''
+    title: '',
+    cards: []
   }
   submit = () => {
     const { dispatch } = this.props

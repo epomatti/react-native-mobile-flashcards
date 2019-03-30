@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Button, Text, Header, Body, Title } from 'native-base'
+import { Container, Button, Text, Card, CardItem, Body } from 'native-base'
 import { connect } from 'react-redux'
 import { retrieveDecks } from '../actions';
 import * as Api from '../utils/api'
@@ -36,7 +36,16 @@ class Decks extends Component {
       <Container>
         {
           Object.keys(decks).map(key => (
-            <Text key={key}>{key}</Text>
+            <Card key={key}>
+              <CardItem header>
+                <Text>{key}</Text>
+              </CardItem>
+              <CardItem>
+                <Body>
+                  <Text>Cards: {decks[key].cards.length}</Text>
+                </Body>
+              </CardItem>
+            </Card>
           ))
         }
       </Container>
