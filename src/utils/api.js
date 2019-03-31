@@ -9,11 +9,6 @@ export function submitDeck(deck) {
   return AsyncStorage.mergeItem('decks', JSON.stringify({ [deck.title]: deck }))
 }
 
-export function fetchCards() {
-  return AsyncStorage.getItem('cards')
-    .then(cards => JSON.parse(cards))
-}
-
-export function submitCard(card) {
-  return AsyncStorage.mergeItem('cards', JSON.stringify({ [card.id]: card }))
+export function submitPlay(play) {
+  return AsyncStorage.mergeItem('decks', JSON.stringify({ [deck.title]: deck }))
 }

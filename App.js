@@ -1,7 +1,7 @@
 import React from 'react'
 import { applyMiddleware, createStore } from 'redux'
 import { Provider } from 'react-redux'
-import decks from './src/reducers'
+import { decks, plays } from './src/reducers/index'
 import { Root } from 'native-base'
 import { Font } from 'expo'
 import { Ionicons } from '@expo/vector-icons'
@@ -11,13 +11,10 @@ import NewDeck from './src/components/NewDeck'
 import Deck from './src/components/Deck'
 import logger from 'redux-logger'
 import { combineReducers } from 'redux'
-import { Constants } from "expo"
-import { View } from 'react-native'
-import { AsyncStorage } from 'react-native'
 import AddCard from './src/components/AddCard'
 import Quiz from './src/components/Quiz'
 
-const store = createStore(combineReducers({ decks }), applyMiddleware(logger))
+const store = createStore(combineReducers({ decks, plays }), applyMiddleware(logger))
 
 const Tabs = createMaterialTopTabNavigator({
   Decks: {
@@ -62,10 +59,6 @@ export default class App extends React.Component {
     this.state = { loading: true }
   }
   async componentDidMount() {
-
-    //AsyncStorage.clear() 
-    //AsyncStorage.getItem('decks').then(decks => JSON.parse(decks)).then(decks => console.log(decks))
-
     await Font.loadAsync({
       Roboto: require('native-base/Fonts/Roboto.ttf'),
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
@@ -73,6 +66,7 @@ export default class App extends React.Component {
     })
     this.setState({ loading: false });
   }
+
 
   render() {
     const { loading } = this.state

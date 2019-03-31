@@ -1,6 +1,6 @@
-import { RETRIEVE_DECKS, ADD_DECK, ADD_CARD } from '../actions'
+import { RETRIEVE_DECKS, ADD_DECK, ADD_CARD, RECEIVE_PLAYS, ADD_PLAY } from '../actions'
 
-function decks(state = {}, action) {
+export function decks(state = {}, action) {
   switch (action.type) {
     case RETRIEVE_DECKS:
       return {
@@ -22,4 +22,19 @@ function decks(state = {}, action) {
   }
 }
 
-export default decks
+export function plays(state = {}, action) {
+  switch (action.type) {
+    case RECEIVE_PLAYS:
+      return {
+        ...state,
+        ...action.plays
+      }
+    case ADD_PLAY:
+      return {
+        ...state,
+        [action.play.timestamp]: action.play
+      }
+    default:
+      return state
+  }
+}

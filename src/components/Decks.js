@@ -4,6 +4,7 @@ import { Container, Button, Text, Card, CardItem, Body } from 'native-base'
 import { connect } from 'react-redux'
 import { retrieveDecks } from '../actions';
 import * as Api from '../utils/api'
+import { clearLocalNotifications, setLocalNotification } from '../utils/notification'
 
 class Decks extends Component {
   state = {
@@ -14,6 +15,21 @@ class Decks extends Component {
     Api.fetchDecks()
       .then(decks => dispatch(retrieveDecks(decks)))
       .then(this.setState({ ready: true }))
+    if (this.playedToday() === false) {
+      clearLocalNotifications().then(() => {
+        setLocalNotification()
+      })
+    }
+  }
+  playedToday = () => {
+    const { plays } = this.props
+    return Object.values(plays).filter(play => {
+      const today = new Date()
+      const day = new Date(play.timestamp)
+      return today.getFullYear() === day.getFullYear()
+        && today.getMonth() === day.getMonth()
+        && today.getDay() === day.getDay()
+    }).length > 0
   }
   toDeck = (key) => {
     this.props.navigation.navigate('Deck', { deckId: key }
@@ -25,44 +41,33 @@ class Decks extends Component {
     if (ready === false) {
       return <Container><Text>Loading decks</Text></Container>
     }
-    if (ready === true && Object.keys(decks).length === 0) {
-      return (
-        <Container>
-          <Text>You don't have any decks</Text>
-          <Button onPress={() => this.props.navigation.navigate(
-            'NewDeck'
-          )}>
-            <Text>Create Deck</Text>
-          </Button>
-        </Container >
-      )
-    } else {
-      return (
-        <Container>
-          {
-            Object.keys(decks).map(key => (
-              <TouchableOpacity key={key} onPress={() => this.toDeck(key)}>
-                <Card >
-                  <CardItem header>
-                    <Text>{key}</Text>
-                  </CardItem>
-                  <CardItem>
-                    <Body>
-                      <Text>{decks[key].cards.length} cards</Text>
-                    </Body>
-                  </CardItem>
-                </Card>
-              </TouchableOpacity>
-            ))
-          }
-        </Container>
-      )
-    }
+    return (
+      <Container>
+        {
+          Object.keys(decks).map(key => (
+            <TouchableOpacity key={key} onPress={() => this.toDeck(key)}>
+              <Card >
+                <CardItem header>
+                  <Text>{key}</Text>
+                </CardItem>
+                <CardItem>
+                  <Body>
+                    <Text>{decks[key].cards.length} cards</Text>
+                  </Body>
+                </CardItem>
+              </Card>
+            </TouchableOpacity>
+          ))
+        }
+      </Container>
+    )
+
   }
 }
-function mapStateToProps({ decks }) {
+function mapStateToProps({ decks, plays }) {
   return {
-    decks
+    decks,
+    plays
   }
 }
 
