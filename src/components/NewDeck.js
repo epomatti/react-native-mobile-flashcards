@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Button, Text, Input, Item } from 'native-base'
+import { Container, Button, Text, Input, Item, Content, Form } from 'native-base'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 import { addDeck } from '../actions'
@@ -22,17 +22,20 @@ class NewDeck extends Component {
   render() {
     return (
       <Container>
-        <Text>What is the title of your new deck?</Text>
-        <Item regular>
-          <Input
-            onChangeText={(text) => this.setState({ title: text })}
-            placeholder='Title'
-            value={this.state.title}
-          />
-        </Item>
-        <Button onPress={this.submit}>
-          <Text>Submit</Text>
-        </Button>
+        <Content>
+          <Form>
+            <Item last>
+              <Input
+                onChangeText={(text) => this.setState({ title: text })}
+                placeholder='Title'
+                value={this.state.title}
+              />
+            </Item>
+          </Form>
+          <Button onPress={this.submit}>
+            <Text>Submit</Text>
+          </Button>
+        </Content>
       </Container>
     );
   }
