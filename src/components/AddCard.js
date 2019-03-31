@@ -15,10 +15,11 @@ class AddCard extends Component {
     }
   }
   submit = () => {
-    const { deck, dispatch } = this.props
+    const { deck, dispatch, goBack } = this.props
     deck.cards = deck.cards.concat(this.state)
     Api.submitDeck(deck)
       .then(dispatch(addCard(deck)))
+    goBack()
   }
   render() {
     const { question, answer } = this.state
@@ -50,7 +51,8 @@ class AddCard extends Component {
 function mapStateToProps({ decks }, { navigation }) {
   const { deckId } = navigation.state.params
   return {
-    deck: decks[deckId]
+    deck: decks[deckId],
+    goBack: () => navigation.goBack()
   }
 }
 export default connect(mapStateToProps)(AddCard);

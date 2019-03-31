@@ -13,6 +13,10 @@ class Deck extends Component {
     const { deckId } = this.props.navigation.state.params
     this.props.navigation.navigate('AddCard', { deckId })
   }
+  startQuiz = () => {
+    const { deckId } = this.props.navigation.state.params
+    this.props.navigation.navigate('Quiz', { deckId })
+  }
   render() {
     const { title, cards } = this.props.deck
     return (
@@ -23,7 +27,7 @@ class Deck extends Component {
             <Button bordered onPress={() => this.toAddCard()}>
               <Text>Add Card</Text>
             </Button>
-            <Button>
+            <Button onPress={() => this.startQuiz()}>
               <Text>Start Quiz</Text>
             </Button>
           </Body>
@@ -35,7 +39,7 @@ class Deck extends Component {
 function mapStateToProps({ decks }, { navigation }) {
   const { deckId } = navigation.state.params
   return {
-    deck: decks[deckId]
+    deck: decks[deckId],
   }
 }
 export default connect(mapStateToProps)(Deck);

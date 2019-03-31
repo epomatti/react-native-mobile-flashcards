@@ -14,7 +14,8 @@ import { combineReducers } from 'redux'
 import { Constants } from "expo"
 import { View } from 'react-native'
 import { AsyncStorage } from 'react-native'
-import  AddCard  from './src/components/AddCard'
+import AddCard from './src/components/AddCard'
+import Quiz from './src/components/Quiz'
 
 const store = createStore(combineReducers({ decks }), applyMiddleware(logger))
 
@@ -46,6 +47,9 @@ const StackNavigator = createStackNavigator({
   },
   AddCard: {
     screen: AddCard,
+  },
+  Quiz: {
+    screen: Quiz,
   }
 })
 
