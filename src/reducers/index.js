@@ -1,4 +1,4 @@
-import { RETRIEVE_DECKS, ADD_DECK, ADD_CARD, RECEIVE_PLAYS, ADD_PLAY } from '../actions'
+import { RETRIEVE_DECKS, ADD_DECK, ADD_CARD, RETRIEVE_PLAYS, ADD_PLAY } from '../actions/index.js'
 
 export function decks(state = {}, action) {
   switch (action.type) {
@@ -24,7 +24,7 @@ export function decks(state = {}, action) {
 
 export function plays(state = {}, action) {
   switch (action.type) {
-    case RECEIVE_PLAYS:
+    case RETRIEVE_PLAYS:
       return {
         ...state,
         ...action.plays

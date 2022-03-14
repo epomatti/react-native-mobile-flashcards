@@ -1,8 +1,7 @@
-import { AsyncStorage } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 
 export function fetchDecks() {
-  return AsyncStorage.getItem('decks')
-    .then(decks => JSON.parse(decks))
+  return AsyncStorage.getItem('decks').then(decks => JSON.parse(decks))
 }
 
 export function submitDeck(deck) {

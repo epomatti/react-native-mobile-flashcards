@@ -2,10 +2,13 @@ import React from 'react'
 import { applyMiddleware, createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { decks, plays } from './src/reducers/index'
-import { Root } from 'native-base'
+import { NativeBaseProvider, Box } from 'native-base'
 import { Font } from 'expo'
 import { Ionicons } from '@expo/vector-icons'
-import { createAppContainer, createStackNavigator, createMaterialTopTabNavigator } from 'react-navigation'
+import { createAppContainer } from 'react-navigation'
+import { createMaterialTopTabNavigator } from 'react-navigation-tabs'
+import { createStackNavigator } from 'react-navigation-stack'
+import { NavigationContainer } from '@react-navigation/native';
 import Decks from './src/components/Decks'
 import NewDeck from './src/components/NewDeck'
 import Deck from './src/components/Deck'
@@ -13,6 +16,7 @@ import logger from 'redux-logger'
 import { combineReducers } from 'redux'
 import AddCard from './src/components/AddCard'
 import Quiz from './src/components/Quiz'
+import { View, Text } from 'react-native'
 
 const store = createStore(combineReducers({ decks, plays }), applyMiddleware(logger))
 
@@ -30,10 +34,10 @@ const Tabs = createMaterialTopTabNavigator({
     }
   }
 }, {
-    navigationOptions: {
-      headerTitle: 'FLASHCARDS'
-    }
-  })
+  navigationOptions: {
+    headerTitle: 'FLASHCARDS'
+  }
+})
 
 const StackNavigator = createStackNavigator({
   Home: {
@@ -52,6 +56,7 @@ const StackNavigator = createStackNavigator({
 
 const MainNavigator = createAppContainer(StackNavigator)
 
+
 export default class App extends React.Component {
 
   constructor(props) {
@@ -59,25 +64,24 @@ export default class App extends React.Component {
     this.state = { loading: true }
   }
   async componentDidMount() {
-    await Font.loadAsync({
-      Roboto: require('native-base/Fonts/Roboto.ttf'),
-      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-      ...Ionicons.font,
-    })
+    // await Font.loadAsync({
+    //   Roboto: require('native-base/Fonts/Roboto.ttf'),
+    //   Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+    //   ...Ionicons.font,
+    // })
     this.setState({ loading: false });
   }
-
-
   render() {
     const { loading } = this.state
     return (
       <Provider store={store}>
-        <Root>
+        <NativeBaseProvider >
           {loading === false &&
             <MainNavigator />
           }
-        </Root>
+        </NativeBaseProvider>
       </Provider>
     );
   }
+
 }

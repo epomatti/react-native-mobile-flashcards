@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Button, Text, Input, Item, Content, Form } from 'native-base'
+import { Container, Button, Input, FormControl, Box, Stack } from 'native-base'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 import { addDeck } from '../actions'
@@ -21,22 +21,21 @@ class NewDeck extends Component {
   }
   render() {
     return (
-      <Container>
-        <Content>
-          <Form>
-            <Item last>
+        <Box>
+          <Stack space="2.5" mt="4" px="8">
+            <FormControl>
               <Input
                 onChangeText={(text) => this.setState({ title: text })}
                 placeholder='Title'
                 value={this.state.title}
+                size="lg"
               />
-            </Item>
-          </Form>
-          <Button onPress={this.submit}>
-            <Text>Submit</Text>
-          </Button>
-        </Content>
-      </Container>
+            </FormControl>
+            <Button onPress={this.submit} size="lg">
+              Submit
+            </Button>
+          </Stack>
+        </Box>
     );
   }
 }

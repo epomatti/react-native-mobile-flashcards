@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { TouchableOpacity, ScrollView } from 'react-native'
-import { Container, Text, Card, CardItem, Body } from 'native-base'
+import { Container, Text, VStack, Stack, Box, Divider, Center } from 'native-base';
 import { connect } from 'react-redux'
 import { retrieveDecks } from '../actions';
 import * as Api from '../utils/api'
@@ -42,24 +42,24 @@ class Decks extends Component {
       return <Container><Text>Loading decks</Text></Container>
     }
     return (
-        <ScrollView>
-          {
-            Object.keys(decks).map(key => (
-              <TouchableOpacity key={key} onPress={() => this.toDeck(key)}>
-                <Card >
-                  <CardItem header>
-                    <Text>{key}</Text>
-                  </CardItem>
-                  <CardItem>
-                    <Body>
-                      <Text>{decks[key].cards.length} cards</Text>
-                    </Body>
-                  </CardItem>
-                </Card>
-              </TouchableOpacity>
-            ))
-          }
-        </ScrollView>
+      <ScrollView>
+        {
+          Object.keys(decks).map(key => (
+            <TouchableOpacity key={key} onPress={() => this.toDeck(key)}>
+              <VStack space="2.5" mt="4" px="8">
+                <Stack direction="column" mb="2.5" mt="1.5" >
+                  <Center  w="100%"h="12" bg="primary.400" rounded="sm" _text={{
+                    color: "warmGray.50",
+                    fontWeight: "medium"
+                  }} shadow={"3"}>
+                    {key}
+                  </Center>
+                </Stack>
+              </VStack>
+            </TouchableOpacity>
+          ))
+        }
+      </ScrollView>
     )
 
   }

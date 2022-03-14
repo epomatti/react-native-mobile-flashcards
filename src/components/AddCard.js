@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Container, Button, Item, Input, Text, Form, Content } from 'native-base'
+import { Container, Button, Input, Text, FormControl, VStack, Box, WarningOutlineIcon } from 'native-base'
 import { connect } from 'react-redux'
 import { addCard } from '../actions'
 import * as Api from '../utils/api'
-import { StyleSheet } from 'react-native'
 
 class AddCard extends Component {
   state = {
@@ -25,42 +24,41 @@ class AddCard extends Component {
   render() {
     const { question, answer } = this.state
     return (
-      <Container>
-        <Content>
-          <Form>
-            <Item>
-              <Text>What is the question?</Text>
-            </Item>
-            <Item regular>
-              <Input
-                onChangeText={(value) => this.setState({ question: value })}
-                placeholder='Question'
-                value={question}
-              />
-            </Item>
-            <Text>What is the answer?</Text>
-            <Item last regular>
-              <Input
-                onChangeText={(value) => this.setState({ answer: value })}
-                placeholder='Answer'
-                value={answer}
-              />
-            </Item>
-            <Button onPress={this.submit}>
-              <Text>Submit</Text>
+      <Box>
+        <VStack space="2.5" mt="4" px="8">
+          <FormControl isRequired>
+            <FormControl.Label>
+              What is the question?
+            </FormControl.Label>
+            <Input
+              onChangeText={(value) => this.setState({ question: value })}
+              placeholder='Question'
+              value={question}
+              size="lg"
+            />
+          </FormControl>
+          <FormControl isRequired>
+            <FormControl.Label>
+              What is the answer?
+            </FormControl.Label>
+            <Input
+              onChangeText={(value) => this.setState({ answer: value })}
+              placeholder='Answer'
+              value={answer}
+              size="lg"
+            />
+          </FormControl>
+          <FormControl>
+            <Button onPress={this.submit} size="lg">
+              Submit
             </Button>
-          </Form>
-        </Content>
-      </Container>
+          </FormControl>
+        </VStack>
+      </Box>
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  }
-})
+
 function mapStateToProps({ decks }, { navigation }) {
   const { deckId } = navigation.state.params
   return {

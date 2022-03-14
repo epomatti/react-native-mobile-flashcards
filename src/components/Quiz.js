@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import { Container, Button, Item, Input, Text, Card, CardItem, Body } from 'native-base'
+import { Button, Text, Box, Stack, Center, Divider, Heading } from 'native-base'
 import { connect } from 'react-redux'
-import { addCard } from '../actions'
-import * as Api from '../utils/api'
 import { clearLocalNotifications } from '../utils/notification'
+import CircularProgress from 'react-native-circular-progress-indicator'
 
 class AddCard extends Component {
   state = {
@@ -18,26 +17,31 @@ class AddCard extends Component {
     const { cards } = this.props.deck
     const { current, total, showAnswer, answerPlaceholder } = this.state
     return (
-      <Container>
-        <Text>{`${current + 1}/${total}`}</Text>
-        <Text>{cards[current].question}</Text>
-        <Text>{answerPlaceholder}</Text>
-        {showAnswer === false &&
-          <Button success onPress={() => this.showAnswer()}>
-            <Text>Show the Answer</Text>
-          </Button>
-        }
-        {showAnswer === true &&
-          <Fragment>
-            <Button success onPress={() => this.answer(true)}>
-              <Text>Correct</Text>
+      <Box>
+        <Stack space="2.5" mt="4" px="8">
+          <Text>{`Total: ${current + 1}/${total}`}</Text>
+          <Divider></Divider>
+          <Center>
+            <Text mt="3" bold fontSize="2xl">{cards[current].question}</Text>
+            <Text fontSize="2xl">{answerPlaceholder}</Text>
+          </Center>
+          {showAnswer === false &&
+            <Button mt="3" success onPress={() => this.showAnswer()}>
+              Show the Answer
             </Button>
-            <Button danger onPress={() => this.answer(false)}>
-              <Text>Incorrect</Text>
-            </Button>
-          </Fragment>
-        }
-      </Container>
+          }
+          {showAnswer === true &&
+            <Fragment>
+              <Button mt="3" colorScheme="success" onPress={() => this.answer(true)}>
+                Correct
+              </Button>
+              <Button colorScheme="error" onPress={() => this.answer(false)}>
+                Incorrect
+              </Button>
+            </Fragment>
+          }
+        </Stack>
+      </Box>
     )
   }
   showAnswer = () => {
@@ -52,21 +56,26 @@ class AddCard extends Component {
     const { cards } = this.props.deck
     const { current, total } = this.state
     return (
-      <Container>
-        <Text>{`${current + 1}/${total}`}</Text>
-        <Text>{cards[current].question}</Text>
-        <Text>{cards[current].answer}</Text>
-        {this.hasNext() === true &&
-          <Button onPress={() => this.next()}>
-            <Text>Next</Text>
-          </Button>
-        }
-        {this.hasNext() === false &&
-          <Button onPress={() => this.setState({ screen: 'score' })}>
-            <Text>Finish</Text>
-          </Button>
-        }
-      </Container>
+      <Box>
+        <Stack space="2.5" mt="4" px="8">
+          <Text>{`${current + 1}/${total}`}</Text>
+          <Divider></Divider>
+          <Center>
+            <Text mt="3" bold fontSize="2xl">{cards[current].question}</Text>
+            <Text fontSize="2xl">{cards[current].answer}</Text>
+          </Center>
+          {this.hasNext() === true &&
+            <Button mt="3" onPress={() => this.next()}>
+              Next
+            </Button>
+          }
+          {this.hasNext() === false &&
+            <Button mt="3" onPress={() => this.setState({ screen: 'score' })}>
+              Finish
+            </Button>
+          }
+        </Stack>
+      </Box>
     )
   }
   hasNext = () => {
@@ -81,23 +90,30 @@ class AddCard extends Component {
     const percent = (100 / total) * corrects
     clearLocalNotifications()
     return (
-      <Container>
-        <Text>{`You correctly answer a total of ${corrects} out of ${total} questions`}</Text>
-        <Text>{`Your success percentage was: ${percent} %`}</Text>
-        <Button onPress={() => this.setState({
-          current: 0,
-          total: cards.length,
-          screen: 'front',
-          corrects: 0,
-          showAnswer: false,
-          answerPlaceholder: '???'
-        })}>
-          <Text>Restart Quiz</Text>
-        </Button>
-        <Button onPress={() => goBack()}>
-          <Text>Back to Deck</Text>
-        </Button>
-      </Container>
+      <Box>
+        <Stack space="2.5" mt="4" px="8">
+          <Center>
+            <Text bold fontSize="2xl">Results</Text>
+            <Divider></Divider>
+            <Text mt="3" fontSize="md">{`You correctly answer a total of ${corrects} out of ${total} questions`}</Text>
+            <Text fontSize="md">{`Your success percentage was: ${percent} %`}</Text>
+            <CircularProgress value={58} />
+          </Center>
+          <Button onPress={() => this.setState({
+            current: 0,
+            total: cards.length,
+            screen: 'front',
+            corrects: 0,
+            showAnswer: false,
+            answerPlaceholder: '???'
+          })}>
+            Restart Quiz
+          </Button>
+          <Button colorScheme="secondary" onPress={() => goBack()}>
+            Back to Deck
+          </Button>
+        </Stack>
+      </Box>
     )
   }
   next = () => {

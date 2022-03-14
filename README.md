@@ -1,3 +1,5 @@
+expo install react-native-screens react-native-safe-area-context
+
 # React Mobile Flashcards
 
 This  project is developed for **Android devices**.

@@ -1,11 +1,13 @@
-import { Notifications, Permissions } from 'expo'
-import { AsyncStorage } from 'react-native'
+import * as Notifications from 'expo-notifications';
+import AsyncStorage from '@react-native-community/async-storage';
+import { Platform } from 'react-native';
+import * as Permissions from "expo-permissions";
 
 const NOTIFICATION_KEY = 'FLASHCARD:NOTIFICATIONS'
 
 export function clearLocalNotifications() {
   return AsyncStorage.removeItem(NOTIFICATION_KEY)
-    .then(Notifications.cancelAllScheduledNotificationsAsync)
+    .then(cancelAllScheduledNotifications())
 }
 
 export function setLocalNotification() {
@@ -16,20 +18,36 @@ export function setLocalNotification() {
         Permissions.askAsync(Permissions.NOTIFICATIONS)
           .then(({ status }) => {
             if (status !== 'denied') {
-              Notifications.cancelAllScheduledNotificationsAsync()
+              cancelAllScheduledNotifications()
               let today = new Date()
               today.setHours(today.getHours() + 1)
               today.setMinutes(today.getMinutes() + 20)
-              Notifications.scheduleLocalNotificationAsync(
-                {
-                  title: 'Hey!',
-                  body: "Don't forget to take your Quiz today"
-                },
-                { time: today }
-              )
+              scheduleNotification();
               AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
             }
           })
       }
     })
+}
+
+export function cancelAllScheduledNotifications() {
+  if (!isWeb()) {
+    Notifications.cancelAllScheduledNotificationsAsync()
+  }
+}
+
+export function scheduleNotification() {
+  if (!isWeb()) {
+    Notifications.scheduleNotificationAsync(
+      {
+        title: 'Hey!',
+        body: "Don't forget to take your Quiz today"
+      },
+      { time: today }
+    )
+  }
+}
+
+export function isWeb() {
+  return Platform.OS === 'web';
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Text, Card, CardItem, Body } from 'native-base'
-import { connect } from 'react-redux'
+import { Button, VStack, Box, Text, Center } from 'native-base';
+import { connect } from 'react-redux';
 
 class Deck extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -20,19 +20,19 @@ class Deck extends Component {
   render() {
     const { title, cards } = this.props.deck
     return (
-      <Card key={title}>
-        <CardItem>
-          <Body>
-            <Text>{cards.length} cards</Text>
-            <Button bordered onPress={() => this.toAddCard()}>
-              <Text>Add Card</Text>
-            </Button>
-            <Button onPress={() => this.startQuiz()}>
-              <Text>Start Quiz</Text>
-            </Button>
-          </Body>
-        </CardItem>
-      </Card>
+      <Box key={title}>
+        <VStack space="2.5" mt="4" px="8">
+          <Center>
+            <Text fontSize="6xl">{cards.length} cards</Text>
+          </Center>
+          <Button onPress={() => this.toAddCard()} size="lg">
+            Add Card
+          </Button>
+          <Button colorScheme="secondary" onPress={() => this.startQuiz()} size="lg">
+            Start Quiz
+          </Button>
+        </VStack>
+      </Box>
     );
   }
 }
