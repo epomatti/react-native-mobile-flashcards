@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { Button, Text, Box, Stack, Center, Divider, Heading } from 'native-base'
+import { Button, Text, Box, Stack, Center, Divider, Progress } from 'native-base'
 import { connect } from 'react-redux'
 import { clearLocalNotifications } from '../utils/notification'
-import CircularProgress from 'react-native-circular-progress-indicator'
 
 class AddCard extends Component {
   state = {
@@ -35,7 +34,7 @@ class AddCard extends Component {
               <Button key="btnCorrect" mt="3" colorScheme="success" onPress={() => this.answer(true)}>
                 Correct
               </Button>
-              <Button key="btnIncorrect"colorScheme="error" onPress={() => this.answer(false)}>
+              <Button key="btnIncorrect" colorScheme="error" onPress={() => this.answer(false)}>
                 Incorrect
               </Button>
             </Fragment>
@@ -84,6 +83,16 @@ class AddCard extends Component {
     console.log(this.state)
     return total > current + 1
   }
+  progressColor = (percentage) => {
+    console.log(percentage);
+    if (percentage <= 50) {
+      return "danger"
+    } else if (percentage <= 70) {
+      return "primary"
+    } else {
+      return "success"
+    }
+  }
   Score = () => {
     const { cards } = this.props.deck
     const { goBack } = this.props
@@ -97,8 +106,13 @@ class AddCard extends Component {
             <Text bold fontSize="2xl">Results</Text>
             <Divider></Divider>
             <Text key="totalResults" mt="3" fontSize="md">{`You correctly answer a total of ${corrects} out of ${total} questions`}</Text>
-            <Text fontSize="md">{`Your success percentage was: ${percent} %`}</Text>
-            <CircularProgress value={58} />
+            <Text fontSize="md">{'Your success percentage was:'}</Text>
+            <Text mt="4" fontSize="2xl">{`${percent} %`}</Text>
+          </Center>
+          <Center w="100%">
+            <Box w="60%" maxW="250">
+              <Progress size="2xl" colorScheme={this.progressColor(percent)} mb={6} value={percent} />
+            </Box>
           </Center>
           <Button key="btnRestart" onPress={() => this.setState({
             current: 0,

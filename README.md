@@ -1,12 +1,18 @@
-expo install react-native-screens react-native-safe-area-context
-
 # React Mobile Flashcards
 
-This project is developed for **Android devices**.
+## Installation
 
-To start this project:
+You'll need [Expo CLI](https://docs.expo.dev/workflow/expo-cli/) installed for local development:
+
+```bash
+yarn global add expo-cli
+```
+
+Install the dependencies and start the project:
 
 ```bash
 yarn install
-yarn web
+yarn start
 ```
+
+Or start directly on the Web with `yarn web`.
