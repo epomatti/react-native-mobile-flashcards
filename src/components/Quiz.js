@@ -19,23 +19,23 @@ class AddCard extends Component {
     return (
       <Box>
         <Stack space="2.5" mt="4" px="8">
-          <Text>{`Total: ${current + 1}/${total}`}</Text>
+          <Text key="totalFront">{`Total: ${current + 1}/${total}`}</Text>
           <Divider></Divider>
           <Center>
             <Text mt="3" bold fontSize="2xl">{cards[current].question}</Text>
             <Text fontSize="2xl">{answerPlaceholder}</Text>
           </Center>
           {showAnswer === false &&
-            <Button mt="3" success onPress={() => this.showAnswer()}>
+            <Button key="btnShow" mt="3" success onPress={() => this.showAnswer()}>
               Show the Answer
             </Button>
           }
           {showAnswer === true &&
             <Fragment>
-              <Button mt="3" colorScheme="success" onPress={() => this.answer(true)}>
+              <Button key="btnCorrect" mt="3" colorScheme="success" onPress={() => this.answer(true)}>
                 Correct
               </Button>
-              <Button colorScheme="error" onPress={() => this.answer(false)}>
+              <Button key="btnIncorrect"colorScheme="error" onPress={() => this.answer(false)}>
                 Incorrect
               </Button>
             </Fragment>
@@ -47,6 +47,7 @@ class AddCard extends Component {
   showAnswer = () => {
     const { cards } = this.props.deck
     const { current } = this.state
+    console.log(this.state)
     this.setState({
       answerPlaceholder: cards[current].answer,
       showAnswer: true
@@ -58,19 +59,19 @@ class AddCard extends Component {
     return (
       <Box>
         <Stack space="2.5" mt="4" px="8">
-          <Text>{`${current + 1}/${total}`}</Text>
+          <Text key="totalBack">{`${current + 1}/${total}`}</Text>
           <Divider></Divider>
           <Center>
             <Text mt="3" bold fontSize="2xl">{cards[current].question}</Text>
             <Text fontSize="2xl">{cards[current].answer}</Text>
           </Center>
           {this.hasNext() === true &&
-            <Button mt="3" onPress={() => this.next()}>
+            <Button key="btnNext" mt="3" onPress={() => this.next()}>
               Next
             </Button>
           }
           {this.hasNext() === false &&
-            <Button mt="3" onPress={() => this.setState({ screen: 'score' })}>
+            <Button key="btnFinish" mt="3" onPress={() => this.setState({ screen: 'score' })}>
               Finish
             </Button>
           }
@@ -95,11 +96,11 @@ class AddCard extends Component {
           <Center>
             <Text bold fontSize="2xl">Results</Text>
             <Divider></Divider>
-            <Text mt="3" fontSize="md">{`You correctly answer a total of ${corrects} out of ${total} questions`}</Text>
+            <Text key="totalResults" mt="3" fontSize="md">{`You correctly answer a total of ${corrects} out of ${total} questions`}</Text>
             <Text fontSize="md">{`Your success percentage was: ${percent} %`}</Text>
             <CircularProgress value={58} />
           </Center>
-          <Button onPress={() => this.setState({
+          <Button key="btnRestart" onPress={() => this.setState({
             current: 0,
             total: cards.length,
             screen: 'front',
@@ -109,7 +110,7 @@ class AddCard extends Component {
           })}>
             Restart Quiz
           </Button>
-          <Button colorScheme="secondary" onPress={() => goBack()}>
+          <Button key="btnBackDeck" colorScheme="secondary" onPress={() => goBack()}>
             Back to Deck
           </Button>
         </Stack>

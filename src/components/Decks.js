@@ -48,7 +48,7 @@ class Decks extends Component {
             <TouchableOpacity key={key} onPress={() => this.toDeck(key)}>
               <VStack space="2.5" mt="4" px="8">
                 <Stack direction="column" mb="2.5" mt="1.5" >
-                  <Center  w="100%"h="12" bg="primary.400" rounded="sm" _text={{
+                  <Center w="100%" h="12" bg="primary.400" rounded="sm" _text={{
                     color: "warmGray.50",
                     fontWeight: "medium"
                   }} shadow={"3"}>
