@@ -3,12 +3,9 @@ import { applyMiddleware, createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { decks, plays } from './src/reducers/index'
 import { NativeBaseProvider, Box } from 'native-base'
-import { Font } from 'expo'
-import { Ionicons } from '@expo/vector-icons'
 import { createAppContainer } from 'react-navigation'
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs'
 import { createStackNavigator } from 'react-navigation-stack'
-import { NavigationContainer } from '@react-navigation/native';
 import Decks from './src/components/Decks'
 import NewDeck from './src/components/NewDeck'
 import Deck from './src/components/Deck'
@@ -16,7 +13,6 @@ import logger from 'redux-logger'
 import { combineReducers } from 'redux'
 import AddCard from './src/components/AddCard'
 import Quiz from './src/components/Quiz'
-import { View, Text } from 'react-native'
 
 const store = createStore(combineReducers({ decks, plays }), applyMiddleware(logger))
 

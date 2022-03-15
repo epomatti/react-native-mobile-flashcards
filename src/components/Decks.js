@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { TouchableOpacity, ScrollView } from 'react-native'
-import { Container, Text, VStack, Stack, Box, Divider, Center } from 'native-base';
+import { Container, Text, VStack, Stack, Center } from 'native-base';
 import { connect } from 'react-redux'
 import { retrieveDecks } from '../actions';
 import * as Api from '../utils/api'

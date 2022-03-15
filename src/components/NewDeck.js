@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Button, Input, FormControl, Box, Stack } from 'native-base'
+import { Button, Input, FormControl, Box, Stack } from 'native-base'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 import { addDeck } from '../actions'

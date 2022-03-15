@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Button, Input, Text, FormControl, VStack, Box, WarningOutlineIcon } from 'native-base'
+import { Button, Input, FormControl, VStack, Box } from 'native-base'
 import { connect } from 'react-redux'
 import { addCard } from '../actions'
 import * as Api from '../utils/api'
