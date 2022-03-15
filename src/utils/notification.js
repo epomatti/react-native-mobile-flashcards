@@ -1,7 +1,7 @@
 import * as Notifications from 'expo-notifications';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Platform } from 'react-native';
-import * as Permissions from "expo-permissions";
+// import * as Notifications from "expo-notifications";
 
 const NOTIFICATION_KEY = 'FLASHCARD:NOTIFICATIONS'
 
@@ -15,17 +15,18 @@ export function setLocalNotification() {
     .then(JSON.parse)
     .then(data => {
       if (data == null) {
-        Permissions.askAsync(Permissions.NOTIFICATIONS)
-          .then(({ status }) => {
-            if (status !== 'denied') {
-              cancelAllScheduledNotifications()
-              let today = new Date()
-              today.setHours(today.getHours() + 1)
-              today.setMinutes(today.getMinutes() + 20)
-              scheduleNotification();
-              AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
-            }
-          })
+        Notifications.ask
+        // Permissions.askAsync(Permissions.NOTIFICATIONS)
+        //   .then(({ status }) => {
+        //     if (status !== 'denied') {
+        //       cancelAllScheduledNotifications()
+        //       let today = new Date()
+        //       today.setHours(today.getHours() + 1)
+        //       today.setMinutes(today.getMinutes() + 20)
+        //       scheduleNotification();
+        //       AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
+        //     }
+        //   })
       }
     })
 }
