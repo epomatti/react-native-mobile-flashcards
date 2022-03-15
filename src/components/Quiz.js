@@ -105,7 +105,7 @@ class AddCard extends Component {
           <Center>
             <Text bold fontSize="2xl">Results</Text>
             <Divider></Divider>
-            <Text key="totalResults" mt="3" fontSize="md">{`You correctly answer a total of ${corrects} out of ${total} questions`}</Text>
+            <Text key="totalResults" mt="3" fontSize="md">{`You correctly answered ${corrects} out of ${total} questions`}</Text>
             <Text fontSize="md">{'Your success percentage was:'}</Text>
             <Text mt="4" fontSize="2xl">{`${percent} %`}</Text>
           </Center>
