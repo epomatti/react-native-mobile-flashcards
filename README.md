@@ -6,9 +6,11 @@ Originally in 2019 this was running on Android and I refactored it to the latest
 
 ## Demo
 
+A live demo is published here: https://react-native-flashcards.pomatti.io
+
 ![](docs/demo.gif)
 
-## Installation
+## Development
 
 You'll need [Expo CLI](https://docs.expo.dev/workflow/expo-cli/) installed for local development:
 
@@ -28,3 +30,13 @@ If you're running for the web just do:
 ```bash
 yarn web
 ```
+
+## Deployment
+
+As per [documentation](https://docs.expo.dev/distribution/publishing-websites/#vercel):
+
+```bash
+expo build:web
+```
+
+And deploy to your favorite platform.
